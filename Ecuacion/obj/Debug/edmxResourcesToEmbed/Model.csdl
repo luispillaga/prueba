@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EcuacionesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Ecuacion">
+    <Key>
+      <PropertyRef Name="ecuacion_id" />
+    </Key>
+    <Property Name="ecuacion_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ecuacion_a" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="ecuacion_b" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="ecuacion_c" Type="Decimal" Precision="10" Scale="2" />
+    <NavigationProperty Name="EvaluacionEcuacions" Relationship="Self.FK__Evaluacio__ecuac__398D8EEE" FromRole="Ecuacion" ToRole="EvaluacionEcuacion" />
+  </EntityType>
+  <EntityType Name="EvaluacionEcuacion">
+    <Key>
+      <PropertyRef Name="eval_id" />
+    </Key>
+    <Property Name="eval_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="eval_x" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="eval_y" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="ecuacion_id" Type="Int32" />
+    <NavigationProperty Name="Ecuacion" Relationship="Self.FK__Evaluacio__ecuac__398D8EEE" FromRole="EvaluacionEcuacion" ToRole="Ecuacion" />
+  </EntityType>
+  <Association Name="FK__Evaluacio__ecuac__398D8EEE">
+    <End Role="Ecuacion" Type="Self.Ecuacion" Multiplicity="0..1" />
+    <End Role="EvaluacionEcuacion" Type="Self.EvaluacionEcuacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ecuacion">
+        <PropertyRef Name="ecuacion_id" />
+      </Principal>
+      <Dependent Role="EvaluacionEcuacion">
+        <PropertyRef Name="ecuacion_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="EcuacionesEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Ecuacions" EntityType="Self.Ecuacion" />
+    <EntitySet Name="EvaluacionEcuacions" EntityType="Self.EvaluacionEcuacion" />
+    <AssociationSet Name="FK__Evaluacio__ecuac__398D8EEE" Association="Self.FK__Evaluacio__ecuac__398D8EEE">
+      <End Role="Ecuacion" EntitySet="Ecuacions" />
+      <End Role="EvaluacionEcuacion" EntitySet="EvaluacionEcuacions" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

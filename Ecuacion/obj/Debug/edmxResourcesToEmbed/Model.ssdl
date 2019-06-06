@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EcuacionesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Ecuacion">
+    <Key>
+      <PropertyRef Name="ecuacion_id" />
+    </Key>
+    <Property Name="ecuacion_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ecuacion_a" Type="numeric" Precision="10" Scale="2" />
+    <Property Name="ecuacion_b" Type="numeric" Precision="10" Scale="2" />
+    <Property Name="ecuacion_c" Type="numeric" Precision="10" Scale="2" />
+  </EntityType>
+  <EntityType Name="EvaluacionEcuacion">
+    <Key>
+      <PropertyRef Name="eval_id" />
+    </Key>
+    <Property Name="eval_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="eval_x" Type="numeric" Precision="10" Scale="2" />
+    <Property Name="eval_y" Type="numeric" Precision="10" Scale="2" />
+    <Property Name="ecuacion_id" Type="int" />
+  </EntityType>
+  <Association Name="FK__Evaluacio__ecuac__398D8EEE">
+    <End Role="Ecuacion" Type="Self.Ecuacion" Multiplicity="0..1" />
+    <End Role="EvaluacionEcuacion" Type="Self.EvaluacionEcuacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ecuacion">
+        <PropertyRef Name="ecuacion_id" />
+      </Principal>
+      <Dependent Role="EvaluacionEcuacion">
+        <PropertyRef Name="ecuacion_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="EcuacionesModelStoreContainer">
+    <EntitySet Name="Ecuacion" EntityType="Self.Ecuacion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EvaluacionEcuacion" EntityType="Self.EvaluacionEcuacion" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Evaluacio__ecuac__398D8EEE" Association="Self.FK__Evaluacio__ecuac__398D8EEE">
+      <End Role="Ecuacion" EntitySet="Ecuacion" />
+      <End Role="EvaluacionEcuacion" EntitySet="EvaluacionEcuacion" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
